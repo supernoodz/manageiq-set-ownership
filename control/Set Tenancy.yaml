@@ -1,0 +1,52 @@
+---
+- MiqPolicySet:
+    name: 277eed82-e167-4876-8731-52e91e981ec1
+    description: set_tenancy
+    set_type: MiqPolicySet
+    guid: 277eed82-e167-4876-8731-52e91e981ec1
+    read_only: 
+    set_data: 
+    mode: control
+    owner_type: 
+    owner_id: 
+    userid: 
+    group_id: 
+    MiqPolicy:
+    - name: 73cd5f5c-6c41-46b0-8eec-2d32c9cfa0e6
+      description: set_tenancy
+      expression: 
+      towhat: Vm
+      guid: 73cd5f5c-6c41-46b0-8eec-2d32c9cfa0e6
+      created_by: nick
+      updated_by: nick
+      notes: Automatically default tenant ownership for set new VMs/Instances.
+      active: true
+      mode: control
+      read_only: 
+      MiqPolicyContent:
+      - qualifier: success
+        success_sequence: 1
+        success_synchronous: true
+        MiqEventDefinition:
+          name: vm_create
+          description: VM Create Complete
+          guid: de343852-e7b6-452b-ab5a-79047e00e32b
+          event_type: Default
+          definition: 
+          default: 
+          enabled: 
+        MiqAction:
+          name: 78bdac86-abe2-4cab-bf8a-483314239a06
+          description: set_tenancy
+          guid: 78bdac86-abe2-4cab-bf8a-483314239a06
+          action_type: custom_automation
+          options:
+            :use_event_target: false
+            :use_localhost: true
+            :ae_message: create
+            :ae_request: Call_Instance
+            :ae_hash:
+              namespace: Integration/CloudForms
+              class: Control
+              instance: set_tenancy
+      Condition: []
